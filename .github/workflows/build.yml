@@ -33,7 +33,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         
-    - working-directory: 'layout'
+    - working-directory: 'ui'
       run: |
         npm ci && \
         npm run build:lib && \
