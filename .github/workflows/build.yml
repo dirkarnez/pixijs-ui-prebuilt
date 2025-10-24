@@ -51,16 +51,16 @@ jobs:
     #     mkdir -pv ./dist/pixi.js-dist/ && \
     #     cp -r ./node_modules/pixi.js/dist/. ./dist/pixi.js-dist/
 
-    # - name: Archive Release
-    #   uses: thedoctor0/zip-release@master
-    #   with:
-    #     type: 'zip'
-    #     directory: 'layout/dist'
-    #     filename: "${{ github.event.repository.name }}-${{ github.ref_name }}-node-v${{ matrix.node-version }}.zip"
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        type: 'zip'
+        directory: 'ui/dist'
+        filename: "${{ github.event.repository.name }}-${{ github.ref_name }}-node-v${{ matrix.node-version }}.zip"
         
-    # - name: Release prebuilt
-    #   uses: ncipollo/release-action@v1
-    #   with:
-    #     artifacts: "layout/dist/${{ github.event.repository.name }}-${{ github.ref_name }}-node-v${{ matrix.node-version }}.zip"
-    #     allowUpdates: true
-    #     token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Release prebuilt
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "ui/dist/${{ github.event.repository.name }}-${{ github.ref_name }}-node-v${{ matrix.node-version }}.zip"
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }}
