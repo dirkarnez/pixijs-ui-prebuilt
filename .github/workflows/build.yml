@@ -1,0 +1,67 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    # tags:
+    #   - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+      
+permissions:
+    contents: write
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: 'pixijs/ui'
+        path: 'ui'
+        ref: 'v2.2.7'
+        
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        
+    - working-directory: 'layout'
+      run: |
+        npm ci && \
+        npm run build:lib && \
+        npm run types && \
+        npm run build && \
+        cd ./dist && \
+        ls -R
+        
+ # ./node_modules/yoga-layout/dist/
+ # ./node_modules/pixi.js/dist
+ 
+    # - working-directory: 'ui'
+    #   run: |
+    #     mkdir -pv ./dist/yoga-layout-dist/ && \
+    #     cp -r ./node_modules/yoga-layout/dist/. ./dist/yoga-layout-dist/ && \
+    #     mkdir -pv ./dist/pixi.js-dist/ && \
+    #     cp -r ./node_modules/pixi.js/dist/. ./dist/pixi.js-dist/
+
+    # - name: Archive Release
+    #   uses: thedoctor0/zip-release@master
+    #   with:
+    #     type: 'zip'
+    #     directory: 'layout/dist'
+    #     filename: "${{ github.event.repository.name }}-${{ github.ref_name }}-node-v${{ matrix.node-version }}.zip"
+        
+    # - name: Release prebuilt
+    #   uses: ncipollo/release-action@v1
+    #   with:
+    #     artifacts: "layout/dist/${{ github.event.repository.name }}-${{ github.ref_name }}-node-v${{ matrix.node-version }}.zip"
+    #     allowUpdates: true
+    #     token: ${{ secrets.GITHUB_TOKEN }}
