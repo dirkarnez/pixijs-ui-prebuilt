@@ -36,7 +36,6 @@ jobs:
     - working-directory: 'ui'
       run: |
         npm ci && \
-        npm run build:lib && \
         npm run types && \
         npm run build && \
         cd ./dist && \
