@@ -44,9 +44,11 @@ jobs:
     - working-directory: 'ui'
       run: |
         mkdir -pv ./dist/tweedle.js-dist/ && \
-        cp -r ./node_modules/tweedle.js/dist/. ./dist/tweedle.js-dist/ && \
-        mkdir -pv ./dist/typed-signals-dist/ && \
-        cp -r ./node_modules/typed-signals/dist/. ./dist/typed-signals-dist/
+        cp -r ./node_modules/tweedle.js/dist/. ./dist/tweedle.js-dist/
+        
+    # && \
+    # mkdir -pv ./dist/typed-signals-dist/ && \
+    # cp -r ./node_modules/typed-signals/dist/. ./dist/typed-signals-dist/
 
     - name: Archive Release
       uses: thedoctor0/zip-release@master
