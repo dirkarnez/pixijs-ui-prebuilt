@@ -41,15 +41,12 @@ jobs:
         cd ./dist && \
         ls -R
         
- # ./node_modules/yoga-layout/dist/
- # ./node_modules/pixi.js/dist
- 
-    # - working-directory: 'ui'
-    #   run: |
-    #     mkdir -pv ./dist/yoga-layout-dist/ && \
-    #     cp -r ./node_modules/yoga-layout/dist/. ./dist/yoga-layout-dist/ && \
-    #     mkdir -pv ./dist/pixi.js-dist/ && \
-    #     cp -r ./node_modules/pixi.js/dist/. ./dist/pixi.js-dist/
+    - working-directory: 'ui'
+      run: |
+        mkdir -pv ./dist/tweedle.js-dist/ && \
+        cp -r ./node_modules/tweedle.js/dist/. ./dist/tweedle.js-dist/ && \
+        mkdir -pv ./dist/typed-signals-dist/ && \
+        cp -r ./node_modules/typed-signals/dist/. ./dist/typed-signals-dist/
 
     - name: Archive Release
       uses: thedoctor0/zip-release@master
